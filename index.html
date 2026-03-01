@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Location Tracker</h2>
+
+<script>
+function sendLocation(position) {
+  console.log("Latitude:", position.coords.latitude);
+  console.log("Longitude:", position.coords.longitude);
+
+  fetch("https://location-p94v.onrender.com", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    })
+  });
+}
+
+function showError(error) {
+  console.log("Error getting location:", error.message);
+}
+
+navigator.geolocation.watchPosition(
+  sendLocation,
+  showError,
+  { enableHighAccuracy: true }
+);
+</script>
+
+</body>
+</html>
